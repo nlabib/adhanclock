@@ -1,183 +1,113 @@
-🕌 Adhan Clock (Raspberry Pi)
+# Adhan Clock (Raspberry Pi)
 
-A cost-friendly, open-source Adhan Clock built with a Raspberry Pi.
-It automatically fetches daily prayer times from the internet, plays the Adhan through a speaker, and provides a web-based control panel (mobile-friendly) built with React.
+A low-cost, open-source **Adhan Clock** built with a Raspberry Pi.  
+It automatically fetches daily prayer times, plays the Adhan through a speaker, and exposes a local web dashboard (React) for configuration and control.
 
-Designed to be:
+---
 
-Simple to build
+## Features
 
-Easy to customize
+- Automatic daily prayer time fetching
+- Accurate Adhan scheduling (Fajr–Isha)
+- Local Adhan audio playback
+- Web-based control panel (mobile friendly)
+- Configurable location, calculation method, and madhab
+- Enable/disable individual prayers
+- Volume control and test playback
+- Offline support via cached prayer times
+- Runs automatically on boot (systemd)
+- Designed to be inexpensive and easy to replicate
 
-Well-documented
+---
 
-Reproducible for anyone
-
-✨ Features
-
-📡 Automatically fetches daily prayer times from the internet
-
-🕰️ Accurate scheduling for all five daily prayers
-
-🔊 Plays Adhan audio through a speaker
-
-🌍 Configurable location, calculation method, and madhab
-
-🌐 Local web dashboard (works on phone, tablet, or PC)
-
-🎚️ Volume control and test playback
-
-📴 Works offline using cached prayer times
-
-🔁 Runs automatically on boot (systemd)
-
-💸 Designed to be low-cost
-
-🧱 Hardware Requirements (Cost-Friendly)
+## Hardware Requirements
 
 Minimum recommended setup:
 
-Raspberry Pi Zero 2 W (or Pi 3 / Pi 4)
+- Raspberry Pi Zero 2 W (or Pi 3 / Pi 4)
+- 16–32GB microSD card
+- USB speaker (plug-and-play)
+- Internet connection (Wi-Fi)
 
-16–32GB microSD card
+Optional:
+- RTC module (DS3231)
+- Small OLED/LCD display
 
-USB speaker (simplest option)
+---
 
-Power supply
+## Tech Stack
 
-Internet connection (Wi-Fi)
+**Backend**
+- Python
+- FastAPI
+- systemd
 
-Optional upgrades:
+**Frontend**
+- React (TypeScript)
+- Local web dashboard
 
-RTC module (DS3231) for better offline accuracy
+**Audio**
+- Local MP3/WAV Adhan files
 
-Small OLED/LCD screen for a physical clock display
+---
 
-🧠 How It Works (High Level)
-
-The Raspberry Pi fetches daily prayer times based on your location
-
-Prayer times are cached locally
-
-A background scheduler monitors the current time
-
-When a prayer time is reached:
-
-The Adhan audio is played through the speaker
-
-A local web server exposes a control panel to:
-
-Change settings
-
-View prayer times
-
-Test audio
-
-Enable/disable prayers
-
-🧩 Tech Stack
-Backend
-
-Python
-
-FastAPI (REST API)
-
-systemd (background services)
-
-Local JSON configuration
-
-Frontend
-
-React (TypeScript)
-
-Mobile-friendly web UI
-
-Served locally from the Raspberry Pi
-
-Audio
-
-Local MP3/WAV Adhan files
-
-Played using system audio utilities
-
-📁 Project Structure
+## Project Structure
 adhan-clock/
 ├── backend/
-│   ├── app/
-│   │   ├── main.py           # FastAPI server
-│   │   ├── prayer_times.py   # Fetch & cache prayer times
-│   │   ├── scheduler.py      # Adhan scheduling logic
-│   │   ├── audio.py          # Audio playback helpers
-│   │   └── config.py         # Load/save configuration
-│   ├── requirements.txt
-│   └── systemd/
-│       ├── adhan-backend.service
-│       └── adhan-scheduler.service
-│
+│ ├── app/
+│ │ ├── main.py # API server
+│ │ ├── prayer_times.py # Prayer time fetching & caching
+│ │ ├── scheduler.py # Adhan scheduling logic
+│ │ ├── audio.py # Audio playback
+│ │ └── config.py # Configuration handling
+│ ├── requirements.txt
+│ └── systemd/
+│ ├── adhan-backend.service
+│ └── adhan-scheduler.service
 ├── frontend/
-│   ├── src/
-│   ├── package.json
-│   └── vite.config.ts
-│
 ├── audio/
-│   ├── adhan1.mp3
-│   └── adhan2.mp3
-│
 ├── scripts/
-│   ├── install.sh
-│   └── enable_services.sh
-│
 ├── docs/
-│   ├── setup.md
-│   └── troubleshooting.md
-│
-├── README.md
-└── LICENSE
+└── README.md
 
-⚙️ Installation (Planned)
+---
 
-Full step-by-step instructions will be provided in docs/setup.md
+## Installation
 
-High-level steps:
+Detailed setup instructions will be provided in `docs/setup.md`.
 
-Flash Raspberry Pi OS (Lite recommended)
+Planned installation flow:
 
-Clone this repository
-
-Run the install script
-
-Configure location and prayer settings
-
-Access the dashboard from your phone or browser
-
+```bash
 git clone https://github.com/yourusername/adhan-clock.git
 cd adhan-clock
 ./scripts/install.sh
+Web Dashboard
 
-🌐 Web Dashboard
-
-Once running, the dashboard will be available at:
+After installation, access the dashboard from any device on the same network:
 
 http://adhanclock.local
 
 
-(or via the Pi’s local IP address)
+(or via the Raspberry Pi’s local IP address)
 
 Dashboard Features
 
 View today’s prayer times
 
-See next prayer countdown
+Next prayer countdown
 
 Change location and calculation method
 
-Enable/disable individual prayers
+Enable/disable prayers
 
 Adjust volume
 
-Play test Adhan
+Test Adhan playback
 
-📍 Configuration Options
+Configuration
+
+Supported configuration options:
 
 City or latitude/longitude
 
@@ -189,53 +119,39 @@ Adhan audio selection
 
 Volume level
 
-Prayer enable/disable toggles
+Prayer toggles
 
-All settings are stored in a local JSON config file.
+Configuration is stored locally in a JSON file.
 
-🔒 Security
-
-Designed for local network use
-
-No external exposure by default
-
-Authentication can be added if remote access is needed
-
-🛠️ Roadmap
+Roadmap
 
  Physical display support
 
+ Offline prayer time calculation
+
  Multiple Adhan profiles
-
- Offline calculation fallback
-
- React Native / mobile wrapper
 
  Docker support
 
- Multi-device sync
+ Mobile app wrapper (React Native / Capacitor)
 
-🤝 Contributing
+Contributing
 
 Contributions are welcome.
 
-You can help by:
+Please open an issue or submit a pull request for:
 
-Improving documentation
+Bug fixes
 
-Adding features
+Feature additions
 
-Testing on different Raspberry Pi models
+Documentation improvements
 
-Submitting bug reports
+License
 
-Please open an issue or submit a pull request.
+MIT License
 
-📜 License
+Purpose
 
-This project is open-source under the MIT License.
-You are free to use, modify, and distribute it.
+This project aims to provide an open, affordable, and customizable Adhan Clock that anyone can build, modify, and improve without relying on proprietary hardware.
 
-🕌 Purpose
-
-This project is built to make Adhan accessible, affordable, and customizable for homes, mosques, and communities—without relying on proprietary hardware or expensive solutions.
